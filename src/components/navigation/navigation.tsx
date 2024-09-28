@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Box from "@mui/material/Box";
 import { navigations } from "./navigation.data";
 import { Link } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import WalletMenu from './wallet.menu'; // Import the WalletMenu component
 
 type NavigationData = {
   path: string;
@@ -22,7 +23,7 @@ const Navigation: FC = () => {
         flexDirection: { xs: "column", lg: "row" }
       }}
     >
-      {navigations.map(({ path: destination, label }: NavigationData) =>
+      {navigations.map(({ path: destination, label }: NavigationData) => (
         <Box
           key={label}
           component={Link}
@@ -30,7 +31,7 @@ const Navigation: FC = () => {
           sx={{
             display: "inline-flex",
             position: "relative",
-            color: currentPath === destination ? "" : "white",
+            color: currentPath === destination ? "primary.main" : "white",
             lineHeight: "30px",
             letterSpacing: "3px",
             cursor: "pointer",
@@ -42,9 +43,8 @@ const Navigation: FC = () => {
             px: { xs: 0, lg: 3 },
             mb: { xs: 3, lg: 0 },
             fontSize: "20px",
-            ...destination === "/" && { color: "primary.main" },
             "& > div": { display: "none" },
-            "&.current>div": { display: "block" },
+            "&.current > div": { display: "block" },
             "&:hover": {
               color: "text.disabled"
             }
@@ -63,30 +63,8 @@ const Navigation: FC = () => {
           </Box>
           {label}
         </Box>
-      )}
-      <Box
-        sx={{
-          position: "relative",
-          color: "white",
-          cursor: "pointer",
-          textDecoration: "none",
-          textTransform: "uppercase",
-          fontWeight: 600,
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          px: { xs: 0, lg: 3 },
-          mb: { xs: 3, lg: 0 },
-          fontSize: "24px",
-          lineHeight: "6px",
-          width: "324px",
-          height: "45px",
-          borderRadius: "6px",
-          backgroundColor: "#00dbe3"
-        }}
-      >
-        Connect Wallet
-      </Box>
+      ))}
+      <WalletMenu />
     </Box>
   );
 };

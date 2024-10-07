@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Box from "@mui/material/Box";
 import { navigations } from "./navigation.data";
 import { Link } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { BrowserProvider } from 'ethers';
 
 type NavigationData = {
   path: string;
@@ -12,6 +13,25 @@ type NavigationData = {
 const Navigation: FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+
+  const connectMetamask = async () => {
+    if (!window.ethereum) {
+      alert('Please install Metamask');
+      return;
+    }
+
+    try {
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const provider = new BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const account = await signer.getAddress();
+      
+      console.log('Connected account:', account);
+      return { provider, signer, account };
+    } catch (error) {
+      console.error('Metamask connection failed:', error);
+    }
+  };
 
   return (
     <Box
@@ -84,6 +104,7 @@ const Navigation: FC = () => {
           borderRadius: "6px",
           backgroundColor: "#00dbe3"
         }}
+        onClick={() => connectMetamask()}
       >
         Connect Wallet
       </Box>

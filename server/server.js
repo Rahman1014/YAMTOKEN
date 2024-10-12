@@ -3,10 +3,6 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-
-// Connect Database
-// connectDB();
-
 // Init Middleware
 app.use(express.json());
 

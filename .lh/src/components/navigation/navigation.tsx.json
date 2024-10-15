@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/components/navigation/navigation.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1728974042078,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1728974059124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n import { navigations } from \"./navigation.data\";\r\n import { Link } from \"@mui/material\";\r\n import { useLocation } from \"react-router-dom\";\r\n import { useWeb3React } from \"@web3-react/core\";\r\n-import Card from \"./components/Card\";\r\n+import Card from \"../components/Card\";\r\n \r\n type NavigationData = {\r\n   path: string;\r\n   label: string;\r\n"
+                },
+                {
+                    "date": 1728974067861,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n import { navigations } from \"./navigation.data\";\r\n import { Link } from \"@mui/material\";\r\n import { useLocation } from \"react-router-dom\";\r\n import { useWeb3React } from \"@web3-react/core\";\r\n-import Card from \"../components/Card\";\r\n+import Card from \"../Card\";\r\n \r\n type NavigationData = {\r\n   path: string;\r\n   label: string;\r\n@@ -13,9 +13,9 @@\n \r\n const Navigation: FC = () => {\r\n   const location = useLocation();\r\n   const currentPath = location.pathname;\r\n-\r\n+  const { connector, hooks } = useWeb3React();\r\n   return (\r\n     <Box\r\n       sx={{\r\n         display: \"flex\",\r\n"
+                },
+                {
+                    "date": 1728974082346,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,8 +88,9 @@\n         }}\r\n       >\r\n         Connect Wallet\r\n       </Box>\r\n+      <b\r\n     </Box>\r\n   );\r\n };\r\n \r\n"
+                },
+                {
+                    "date": 1728974088625,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,9 +88,12 @@\n         }}\r\n       >\r\n         Connect Wallet\r\n       </Box>\r\n-      <b\r\n+      <Box>\r\n+      <Card connector={connector} hooks={hooks} name='phantom' />\r\n+\r\n+      </Box>\r\n     </Box>\r\n   );\r\n };\r\n \r\n"
+                },
+                {
+                    "date": 1728974093786,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,9 +88,9 @@\n         }}\r\n       >\r\n         Connect Wallet\r\n       </Box>\r\n-      <Box>\r\n+      <Box sx={}>\r\n       <Card connector={connector} hooks={hooks} name='phantom' />\r\n \r\n       </Box>\r\n     </Box>\r\n"
+                },
+                {
+                    "date": 1728974099802,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,9 +88,11 @@\n         }}\r\n       >\r\n         Connect Wallet\r\n       </Box>\r\n-      <Box sx={}>\r\n+      <Box sx={{\r\n+         color: \"white\",\r\n+      }}>\r\n       <Card connector={connector} hooks={hooks} name='phantom' />\r\n \r\n       </Box>\r\n     </Box>\r\n"
+                }
+            ],
+            "date": 1728974042078,
+            "name": "Commit-0",
+            "content": "import React, { FC } from \"react\";\r\nimport Box from \"@mui/material/Box\";\r\nimport { navigations } from \"./navigation.data\";\r\nimport { Link } from \"@mui/material\";\r\nimport { useLocation } from \"react-router-dom\";\r\nimport { useWeb3React } from \"@web3-react/core\";\r\nimport Card from \"./components/Card\";\r\n\r\ntype NavigationData = {\r\n  path: string;\r\n  label: string;\r\n};\r\n\r\nconst Navigation: FC = () => {\r\n  const location = useLocation();\r\n  const currentPath = location.pathname;\r\n\r\n  return (\r\n    <Box\r\n      sx={{\r\n        display: \"flex\",\r\n        flexFlow: \"wrap\",\r\n        justifyContent: \"end\",\r\n        flexDirection: { xs: \"column\", lg: \"row\" }\r\n      }}\r\n    >\r\n      {navigations.map(({ path: destination, label }: NavigationData) =>\r\n        <Box\r\n          key={label}\r\n          component={Link}\r\n          href={destination}\r\n          sx={{\r\n            display: \"inline-flex\",\r\n            position: \"relative\",\r\n            color: currentPath === destination ? \"\" : \"white\",\r\n            lineHeight: \"30px\",\r\n            letterSpacing: \"3px\",\r\n            cursor: \"pointer\",\r\n            textDecoration: \"none\",\r\n            textTransform: \"uppercase\",\r\n            fontWeight: 700,\r\n            alignItems: \"center\",\r\n            justifyContent: \"center\",\r\n            px: { xs: 0, lg: 3 },\r\n            mb: { xs: 3, lg: 0 },\r\n            fontSize: \"20px\",\r\n            ...destination === \"/\" && { color: \"primary.main\" },\r\n            \"& > div\": { display: \"none\" },\r\n            \"&.current>div\": { display: \"block\" },\r\n            \"&:hover\": {\r\n              color: \"text.disabled\"\r\n            }\r\n          }}\r\n        >\r\n          <Box\r\n            sx={{\r\n              position: \"absolute\",\r\n              top: 12,\r\n              transform: \"rotate(3deg)\",\r\n              \"& img\": { width: 44, height: \"auto\" }\r\n            }}\r\n          >\r\n            {/* eslint-disable-next-line */}\r\n            <img src=\"/images/headline-curve.svg\" alt=\"Headline curve\" />\r\n          </Box>\r\n          {label}\r\n        </Box>\r\n      )}\r\n      <Box\r\n        sx={{\r\n          position: \"relative\",\r\n          color: \"white\",\r\n          cursor: \"pointer\",\r\n          textDecoration: \"none\",\r\n          textTransform: \"uppercase\",\r\n          fontWeight: 600,\r\n          display: \"inline-flex\",\r\n          alignItems: \"center\",\r\n          justifyContent: \"center\",\r\n          px: { xs: 0, lg: 3 },\r\n          mb: { xs: 3, lg: 0 },\r\n          fontSize: \"24px\",\r\n          lineHeight: \"6px\",\r\n          width: \"324px\",\r\n          height: \"45px\",\r\n          borderRadius: \"6px\",\r\n          backgroundColor: \"#00dbe3\"\r\n        }}\r\n      >\r\n        Connect Wallet\r\n      </Box>\r\n    </Box>\r\n  );\r\n};\r\n\r\nexport default Navigation;\r\n"
+        }
+    ]
+}

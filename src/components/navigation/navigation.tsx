@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import { navigations } from "./navigation.data";
 import { Link } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { useWeb3React } from "@web3-react/core";
+import Card from "../Card";
 
 type NavigationData = {
   path: string;
@@ -12,7 +14,7 @@ type NavigationData = {
 const Navigation: FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
-
+  const { connector, hooks } = useWeb3React();
   return (
     <Box
       sx={{
@@ -86,6 +88,12 @@ const Navigation: FC = () => {
         }}
       >
         Connect Wallet
+      </Box>
+      <Box sx={{
+         color: "white",
+      }}>
+      <Card connector={connector} hooks={hooks} name='phantom' />
+
       </Box>
     </Box>
   );

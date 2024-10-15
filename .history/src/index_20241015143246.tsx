@@ -12,16 +12,12 @@ import { Web3ReactProvider, Web3ReactHooks } from '@web3-react/core'
 import { Connector } from '@web3-react/types'
 
 import allConnections from './connectors'
-const connections: [Connector, Web3ReactHooks][] = allConnections.map(([connector, hooks]) => [connector, hooks])
 
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <Web3ReactProvider connectors={connections}>
- 
-
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
@@ -29,7 +25,6 @@ root.render(
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
-  </Web3ReactProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

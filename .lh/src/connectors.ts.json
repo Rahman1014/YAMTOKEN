@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/connectors.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1728973939623,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1728973939623,
+            "name": "Commit-0",
+            "content": "// connectors.ts\nimport { initializeConnector, Web3ReactHooks } from '@web3-react/core'\nimport { Connector, Web3ReactStore } from '@web3-react/types'\nimport { Phantom } from 'web3-react-phantom'\n\nconst phantom = initializeConnector<Phantom>((actions) => new Phantom({ actions }))\n\nconst connectors: [Connector, Web3ReactHooks, Web3ReactStore][] = [phantom]\n\nexport default connectors\n"
+        }
+    ]
+}

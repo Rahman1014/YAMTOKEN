@@ -21,7 +21,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <Web3ReactProvider connectors={connections}>
  
-
+</Web3ReactProvider>
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
@@ -29,7 +29,6 @@ root.render(
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
-  </Web3ReactProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

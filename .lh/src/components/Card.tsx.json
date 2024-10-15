@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/Card.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1728974017429,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1728974017429,
+            "name": "Commit-0",
+            "content": "//Card.tsx\nimport { useEffect, useState } from 'react'\nimport { Web3ReactSelectedHooks } from '@web3-react/core'\nimport { Connector } from '@web3-react/types'\n\nexport default function Card({connector, hooks, name}: {connector: Connector, hooks: Web3ReactSelectedHooks, name: string}) {\n  const {useSelectedAccount, useSelectedChainId, useSelectedIsActive, useSelectedIsActivating } = hooks\n  const isActivating = useSelectedIsActivating(connector)\n  const isActive = useSelectedIsActive(connector)\n  const account = useSelectedAccount(connector)\n  const chain = useSelectedChainId(connector)\n\n  const [error, setError] = useState<Error | undefined>(undefined)\n  const [connectionStatus, setConnectionStatus] = useState('Disconnected')\n\n  const handleToggleConnect = () => {\n    setError(undefined) // clear error state\n\n    if (isActive) {\n      if(connector?.deactivate) {\n        void connector.deactivate()\n      } else {\n        void connector.resetState()\n      }\n    }\n    else if (!isActivating) {\n      setConnectionStatus('Connecting..')\n        Promise.resolve(connector.activate(1))\n        .catch((e) => {\n          connector.resetState()\n          setError(e)\n        }) \n      }\n  }\n  useEffect(() => {\n    if(isActive) {\n      setConnectionStatus('Connected')\n    } else {\n      setConnectionStatus('Disconnected')\n    }\n  }\n  ,[isActive])\n\n  return (\n    <div>\n      <p>{name.toUpperCase()}</p>\n      <h3>Status - {(error?.message) ? (\"Error: \" + error.message) : connectionStatus}</h3>\n      <h3>Address - {account ? account : \"No Account Detected\"}</h3>\n      <h3>ChainId -  {chain ? chain : 'No Chain Connected'}</h3>\n      <button onClick={handleToggleConnect} disabled={false}>\n        {isActive ? \"Disconnect\" : \"Connect\"}\n      </button>\n    </div>\n  )\n}\n"
+        }
+    ]
+}

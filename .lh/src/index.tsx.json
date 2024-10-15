@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1728973966660,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1728973973908,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n import { Web3ReactProvider, Web3ReactHooks } from '@web3-react/core'\n import { Connector } from '@web3-react/types'\n \n import allConnections from './connectors'\n+const connections: [Connector, Web3ReactHooks][] = allConnections.map(([connector, hooks]) => [connector, hooks])\n \n \n const root = ReactDOM.createRoot(\n   document.getElementById(\"root\") as HTMLElement\n"
+                },
+                {
+                    "date": 1728973985480,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,14 @@\n const root = ReactDOM.createRoot(\n   document.getElementById(\"root\") as HTMLElement\n );\n root.render(\n+  <Web3ReactProvider connectors={connections}>\n   <React.StrictMode>\n+    <App />\n+  </React.StrictMode>\n+</Web3ReactProvider>\n+  <React.StrictMode>\n     <Provider store={store}>\n       <BrowserRouter>\n         <App />\n       </BrowserRouter>\n"
+                },
+                {
+                    "date": 1728973991063,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,13 +19,11 @@\n   document.getElementById(\"root\") as HTMLElement\n );\n root.render(\n   <Web3ReactProvider connectors={connections}>\n+ \n+\n   <React.StrictMode>\n-    <App />\n-  </React.StrictMode>\n-</Web3ReactProvider>\n-  <React.StrictMode>\n     <Provider store={store}>\n       <BrowserRouter>\n         <App />\n       </BrowserRouter>\n"
+                }
+            ],
+            "date": 1728973966660,
+            "name": "Commit-0",
+            "content": "import React from \"react\";\nimport ReactDOM from \"react-dom/client\";\nimport \"./index.css\";\nimport App from \"./App\";\nimport reportWebVitals from \"./reportWebVitals\";\nimport { Provider } from \"react-redux\";\nimport { store } from \"./store/store\";\nimport { BrowserRouter } from \"react-router-dom\";\n\n// main.tsx\nimport { Web3ReactProvider, Web3ReactHooks } from '@web3-react/core'\nimport { Connector } from '@web3-react/types'\n\nimport allConnections from './connectors'\n\n\nconst root = ReactDOM.createRoot(\n  document.getElementById(\"root\") as HTMLElement\n);\nroot.render(\n  <React.StrictMode>\n    <Provider store={store}>\n      <BrowserRouter>\n        <App />\n      </BrowserRouter>\n    </Provider>\n  </React.StrictMode>\n);\n\n// If you want to start measuring performance in your app, pass a function\n// to log results (for example: reportWebVitals(console.log))\n// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals\nreportWebVitals();\n"
+        }
+    ]
+}

@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useState} from "react";
 import Box from "@mui/material/Box";
 import { navigations } from "./navigation.data";
 import { Link } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { useSDK } from "@metamask/sdk-react";
 
 type NavigationData = {
   path: string;
@@ -12,7 +13,16 @@ type NavigationData = {
 const Navigation: FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { sdk } = useSDK();
 
+  const connect = async () => {
+    try {
+      const accounts = await sdk?.connect();
+    } catch (err) {
+      console.warn("failed to connect..", err);
+    }
+  };
+  
   return (
     <Box
       sx={{
@@ -84,6 +94,8 @@ const Navigation: FC = () => {
           borderRadius: "6px",
           backgroundColor: "#00dbe3"
         }}
+
+        onClick={connect}
       >
         Connect Wallet
       </Box>
